@@ -133,6 +133,8 @@ module OmniAuth
       def with_authorization_code!
         if request.params.key?('code')
           yield
+        elsif request.params.key?('access_token')
+          yield
         elsif code_from_signed_request = signed_request_from_cookie && signed_request_from_cookie['code']
           request.params['code'] = code_from_signed_request
           @authorization_code_from_signed_request_in_cookie = true
